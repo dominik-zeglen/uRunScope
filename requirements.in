@@ -1,0 +1,7 @@
+# core django
+django
+psycopg2
+
+# pytest stuff
+pytest
+django-pytest
