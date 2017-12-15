@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=urun
+      - POSTGRES_PASSWORD=urun
+    ports:
+      - '127.0.0.1:5432:5432'
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DATABASE_URL=postgres://urun:urun@db/urun
+      - SECRET_KEY=changme
+    depends_on:
+      - db
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/app:Z
+
