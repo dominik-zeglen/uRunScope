@@ -25,7 +25,7 @@ SECRET_KEY = 'g2)y&n&n2!v2@1*lak^2#h_@#^56$mx6fjn1(fqhq4zik%%&f*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']  # TODO: change
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'urunscope.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'urun',  # TODO: use env var
+        'PASSWORD': 'urun',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
