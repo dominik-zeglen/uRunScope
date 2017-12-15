@@ -1,7 +1,9 @@
 .*
 .py[cod]
+*.sqlite3
 !.dockerignore
 !.gitignore
 *\.egg*
+*\__pycache__
 build/
 dist/
