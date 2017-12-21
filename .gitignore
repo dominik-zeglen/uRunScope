@@ -3,6 +3,7 @@
 *.sqlite3
 !.dockerignore
 !.gitignore
+!.travis.yml
 *\.egg*
 *\__pycache__
 build/
