@@ -8,3 +8,6 @@ django-pytest
 
 # front
 django-bootstrap3
+
+# geo
+gpxpy
