@@ -13,4 +13,4 @@ class Training(models.Model):
     track = JSONField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title

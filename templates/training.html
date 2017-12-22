@@ -4,7 +4,8 @@
 <form enctype="multipart/form-data" action="{% url 'training:add' %}" method="post">
     <fieldset>
     {% csrf_token %}
-    {{ form }}
+    {% load bootstrap3 %}
+    {% bootstrap_form form %}
     <input type="submit" value="Submit" class="save btn btn-default"/>
     </fieldset>
 </form>
