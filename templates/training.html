@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="{% url 'training:add' %}" method="post">
+<form enctype="multipart/form-data" action="{% url 'training:add' %}" method="post">
+    <fieldset>
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="save btn btn-default"/>
+    </fieldset>
 </form>
 {% endblock %}
