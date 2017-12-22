@@ -5,3 +5,6 @@ psycopg2
 # pytest stuff
 pytest
 django-pytest
+
+# front
+django-bootstrap3
