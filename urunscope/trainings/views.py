@@ -32,3 +32,9 @@ def add(request):
 def show(request, pk):
     training = Training.objects.get(pk=pk)
     return render(request, 'training_show.html', {'training': training})
+
+
+@login_required
+def show_all(request):
+    trainings = Training.objects.filter(user=request.user)
+    return render(request, 'training_list.html', {'trainings': trainings})

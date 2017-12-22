@@ -20,8 +20,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.hello, name='welcome'),
-    path('login/', auth_views.login),
+    path('', views.hello),
+    path('login/', auth_views.login, {'template_name': 'admin/login.html'}),
     path('logout/', auth_views.logout),
     path('admin/', admin.site.urls),
     path('training/', include('urunscope.trainings.urls', namespace='training')),

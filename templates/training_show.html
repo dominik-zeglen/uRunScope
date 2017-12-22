@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% load bootstrap3 %}
-    {% bootstrap_messages %}
-    {{ training.title }}
-    {{ training.distance }}
+{% load bootstrap3 %}
+<div class="page-header">
+    <h1>Training details</h1>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3"><strong>Title</strong></div>   
+        <div class="col-sm-6">{{ training.title }}</div>
+    </div>
+    <div cass="row">
+        <div class="col-sm-3"><strong>Distance</strong></div>
+        <div class="col-sm-6">{{ training.distance }} km</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><strong>Start</strong></div>   
+        <div class="col-sm-6">{{ training.start_time }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><strong>Stop</strong></div>
+        <div class="col-sm-6">{{ training.stop_time }} km</div>
+    </div>
+</div>
+<div>
+    <a href="{% url 'training:list' %}"><button class="btn btn-lg">Show all efforts</button>
+</div>
 {% endblock %}

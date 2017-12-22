@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load bootstrap3 %}
+<div class="page-header">
+    <h1>Your efforts</h1>
+</div>
+<table class="table table-hover">
+    <thead>
+        <th>#</th>
+        <th>date</th>
+        <th>title</th>
+    </thead>
+    <tbody>
+    {% for training in trainings %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ training.start_time }}</td>
+        <td><a href="{% url 'training:show' training.pk %}">{{ training.title }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
