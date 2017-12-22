@@ -7,6 +7,7 @@
     {% load bootstrap3 %}
     {% bootstrap_form form %}
     <input type="submit" value="Submit" class="save btn btn-default"/>
+    <a href="{% url 'training:list' %}"><button class="btn btn-default">Cancel</button></a>
     </fieldset>
 </form>
 {% endblock %}
