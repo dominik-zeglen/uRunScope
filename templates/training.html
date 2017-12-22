@@ -1,5 +1,9 @@
-<form action="/add/" method="post">
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{% url 'training:add' %}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit" />
 </form>
+{% endblock %}

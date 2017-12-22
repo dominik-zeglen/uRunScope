@@ -8,6 +8,6 @@ def add(request):
         form = TrackForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('training:add'))
+            return redirect(reverse('welcome'))
     form = TrackForm()
     return render(request, 'training.html', {'form': form})
