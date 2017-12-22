@@ -8,4 +8,4 @@ class TrackForm(forms.ModelForm):
 
     class Meta:
         model = Training
-        exclude = []
+        fields = ['title']

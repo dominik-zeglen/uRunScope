@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import TrackForm
 
 
@@ -7,6 +8,6 @@ def add(request):
         form = TrackForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('track:add')
+            return redirect(reverse('training:add'))
     form = TrackForm()
     return render(request, 'training.html', {'form': form})
