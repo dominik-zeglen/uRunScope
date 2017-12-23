@@ -4,6 +4,14 @@
 <div class="jumbotron">
     <h2>Welcome to uRunScope!</h2>
     <p>The best place for every over inquisitive runner to satisfy all statistic needs.</p>
+    {% if request.user.is_authenticated %}
+    <p>Nice to see you again {{ user.username }}.</p>
+    <p>
+        <a href="{% url 'training:list' %}" class="btn btn-default">See your efforts</a>
+        <a href="/logout/" class="btn btn-default">Logout</a>
+    </p>
+    {% else %}
     <p><a href="/login/" class="btn btn-primary btn-lg">Login</a></p>
+    {% endif %}
 </div>
 {% endblock %}
