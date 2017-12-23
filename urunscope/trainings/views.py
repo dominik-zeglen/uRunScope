@@ -9,22 +9,15 @@ import datetime
 @login_required
 def add(request):
     if request.method == 'POST':
-        form = TrackForm(request.POST, request.FILES)
+        form = TrackForm(request.user, request.POST, request.FILES)
         if form.is_valid():
-            training = form.save(commit=False)
-            # fake training processing for now
-            training.distance = 1.00
-            training.start_time = datetime.datetime.today()
-            training.stop_time = datetime.datetime.today()
-            training.duration = datetime.timedelta(0)
-            training.user = request.user
-            training.save()
+            training = form.save()
             messages.success(request, 'Training successfuly imported!')
             return redirect('training:show', pk=training.pk)
         else:
             messages.warning(request, 'Incorrect training input!')
             return render(request, 'training.html', {'form': form})
-    form = TrackForm()
+    form = TrackForm(request.user)
     return render(request, 'training.html', {'form': form})
 
 
