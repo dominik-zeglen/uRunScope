@@ -10,5 +10,6 @@ django-pytest
 django-bootstrap3
 
 # geo
+lxml
 gpxpy
 training_stats
