@@ -9,9 +9,11 @@ django-bootstrap3==9.1.0
 django-pytest==0.2.0
 django==2.0
 gpxpy==1.1.2
+numpy==1.13.3             # via training-stats
 pluggy==0.6.0             # via pytest
 psycopg2==2.7.3.2
 py==1.5.2                 # via pytest
 pytest==3.3.1
 pytz==2017.3              # via django
 six==1.11.0               # via pytest
+training-stats==0.2.0
