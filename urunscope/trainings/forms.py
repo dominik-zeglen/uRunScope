@@ -16,12 +16,14 @@ def point_to_dict(point):
     }
 
 
+def iterate_points(data):
+    for track in data.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                yield point
+
+
 def parse_gpx_data(gps_file):
-    def iterate_points(data):
-        for track in data.tracks:
-            for segment in track.segments:
-                for point in segment.points:
-                    yield point
     gps_data = gpxpy.parse(gps_file)
     return [point_to_dict(p) for p in iterate_points(gps_data)]
 
