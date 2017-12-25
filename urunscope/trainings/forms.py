@@ -1,5 +1,6 @@
 import os
 import gpxpy
+import decimal
 
 from django import forms
 from .models import Training
@@ -41,6 +42,18 @@ def get_times(gps_track):
     return start_time, stop_time, duration
 
 
+def get_distance(gps_track):
+    def coordinates(point):
+        return (point['lat'], point['lon'])
+    acc = 0.0
+    last = coordinates(gps_track[0])
+    for point in gps_track:
+        new = coordinates(point)
+        acc += gpxpy.geo.haversine_distance(*last, *new)
+        last = new
+    return decimal.Decimal(acc / 1000.0)
+
+
 class TrackForm(forms.ModelForm):
     track_file = forms.FileField(required=True, help_text='Upload gpx file')
 
@@ -66,11 +79,10 @@ class TrackForm(forms.ModelForm):
         replace_time_with_delta(self.track)
         training.track = self.track
         training.user = self.user
-        # fake training processing for now
-        training.distance = 19.00
         training.start_time = start_t
         training.stop_time = stop_t
         training.duration = dt
+        training.distance = get_distance(self.track)
         if commit:
             training.save()
         return training
