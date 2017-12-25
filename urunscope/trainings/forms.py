@@ -52,7 +52,7 @@ class TrackForm(forms.ModelForm):
         training.track = self.track
         training.user = self.user
         # fake training processing for now
-        training.distance = 1.00
+        training.distance = 19.00
         training.start_time = datetime.datetime.today()
         training.stop_time = datetime.datetime.today()
         training.duration = datetime.timedelta(0)
