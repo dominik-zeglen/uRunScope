@@ -1,6 +1,5 @@
 import os
 import gpxpy
-import datetime
 
 from django import forms
 from .models import Training
@@ -12,7 +11,7 @@ def point_to_dict(point):
         'lat': point.latitude,
         'lon': point.longitude,
         'elev': point.elevation,
-        't': point.time.isoformat()
+        't': point.time
     }
 
 
@@ -26,6 +25,20 @@ def iterate_points(data):
 def parse_gpx_data(gps_file):
     gps_data = gpxpy.parse(gps_file)
     return [point_to_dict(p) for p in iterate_points(gps_data)]
+
+
+def replace_time_with_delta(gps_track):
+    begin = gps_track[0]['t']
+    for point in gps_track:
+        point['t'] = (point['t']-begin).total_seconds()
+
+
+def get_times(gps_track):
+    '''Requires sorted input ordered by time in ascending order'''
+    start_time = gps_track[0]['t']
+    stop_time = gps_track[-1]['t']
+    duration = stop_time - start_time
+    return start_time, stop_time, duration
 
 
 class TrackForm(forms.ModelForm):
@@ -49,13 +62,15 @@ class TrackForm(forms.ModelForm):
 
     def save(self, commit=True):
         training = super().save(commit=False)
+        start_t, stop_t, dt = get_times(self.track)
+        replace_time_with_delta(self.track)
         training.track = self.track
         training.user = self.user
         # fake training processing for now
         training.distance = 19.00
-        training.start_time = datetime.datetime.today()
-        training.stop_time = datetime.datetime.today()
-        training.duration = datetime.timedelta(0)
+        training.start_time = start_t
+        training.stop_time = stop_t
+        training.duration = dt
         if commit:
             training.save()
         return training
