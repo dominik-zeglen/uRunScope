@@ -69,9 +69,12 @@ class TrackForm(forms.ModelForm):
         track = self.cleaned_data['track_file']
         ext = os.path.splitext(track.name)[1]
         if ext.lower() != '.gpx':
-            raise ValidationError('File needs to be in gpx format!')
+            raise ValidationError('File needs to be in gpx format')
         track_file = track.read().decode("utf-8")
-        self.track = parse_gpx_data(track_file)
+        try:
+            self.track = parse_gpx_data(track_file)
+        except gpxpy.gpx.GPXException:
+            raise ValidationError('File is not a valid gpx file')
 
     def save(self, commit=True):
         training = super().save(commit=False)
