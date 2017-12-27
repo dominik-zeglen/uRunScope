@@ -11,6 +11,7 @@ class Training(models.Model):
     stop_time = models.DateTimeField(blank=True)
     duration = models.DurationField(blank=True)
     track = JSONField(blank=True, null=True)
+    hrm = JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.title

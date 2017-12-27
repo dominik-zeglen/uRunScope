@@ -5,7 +5,8 @@ import decimal
 from django import forms
 from .models import Training
 from django.core.exceptions import ValidationError
-
+from training_stats import gpxfile
+from io import StringIO
 
 def point_to_dict(point):
     return {
@@ -71,6 +72,7 @@ class TrackForm(forms.ModelForm):
         if ext.lower() != '.gpx':
             raise ValidationError('File needs to be in gpx format')
         track_file = track.read().decode("utf-8")
+        self.hrm = gpxfile.get_hr_measurements(StringIO(track_file))
         try:
             self.track = parse_gpx_data(track_file)
         except gpxpy.gpx.GPXException:
@@ -86,6 +88,8 @@ class TrackForm(forms.ModelForm):
         training.stop_time = stop_t
         training.duration = dt
         training.distance = get_distance(self.track)
+        if self.hrm:
+            training.hrm = self.hrm
         if commit:
             training.save()
         return training
