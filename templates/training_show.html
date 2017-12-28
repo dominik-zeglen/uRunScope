@@ -5,23 +5,34 @@
 <div class="page-header">
     <h1>Training details</h1>
 </div>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-sm-3"><strong>Title</strong></div>   
-        <div class="col-sm-6">{{ training.title }}</div>
+        <div class="col-sm-7">{{ training.title }}</div>
     </div>
     <div cass="row">
         <div class="col-sm-3"><strong>Distance</strong></div>
-        <div class="col-sm-6">{{ training.distance }} km</div>
+        <div class="col-sm-7">{{ training.distance }} km</div>
     </div>
     <div class="row">
         <div class="col-sm-3"><strong>Start</strong></div>   
-        <div class="col-sm-6">{{ training.start_time }}</div>
+        <div class="col-sm-7">{{ training.start_time }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-3"><strong>Stop</strong></div>
-        <div class="col-sm-6">{{ training.stop_time }} km</div>
+        <div class="col-sm-3"><strong>Duration</strong></div>
+        <div class="col-sm-7">{{ training.duration}}</div>
     </div>
+    {% if training.hrm_summary %}
+    <div class="row">
+        <h2>Heart rate info</h2>
+        <div class="col-sm-2"><strong>Lowest</strong></div>
+        <div class="col-sm-9">{{ training.hrm_summary.lowest }}bpm</div>
+        <div class="col-sm-2"><strong>Highest</strong></div>
+        <div class="col-sm-9">{{ training.hrm_summary.highest}}bpm</div>
+        <div class="col-sm-2"><strong>Avarage</strong></div>
+        <div class="col-sm-9">{{ training.hrm_summary.avarage}}bpm</div>
+    </div>
+    {% endif %}
 </div>
 <div>
     <a href="{% url 'training:list' %}"><button class="btn btn-lg">Show all efforts</button>

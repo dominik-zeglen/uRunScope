@@ -3,10 +3,11 @@ import gpxpy
 import decimal
 
 from django import forms
-from .models import Training
+from .models import Training, HrmSummary
 from django.core.exceptions import ValidationError
 from training_stats import gpxfile
 from io import StringIO
+
 
 def point_to_dict(point):
     return {
@@ -32,7 +33,7 @@ def parse_gpx_data(gps_file):
 def replace_time_with_delta(gps_track):
     begin = gps_track[0]['t']
     for point in gps_track:
-        point['t'] = (point['t']-begin).total_seconds()
+        point['t'] = (point['t'] - begin).total_seconds()
 
 
 def get_times(gps_track):
@@ -46,6 +47,7 @@ def get_times(gps_track):
 def get_distance(gps_track):
     def coordinates(point):
         return (point['lat'], point['lon'])
+
     acc = 0.0
     last = coordinates(gps_track[0])
     for point in gps_track:
@@ -90,6 +92,12 @@ class TrackForm(forms.ModelForm):
         training.distance = get_distance(self.track)
         if self.hrm:
             training.hrm = self.hrm
+            lowest = min(hrm for _, hrm in self.hrm)
+            highest = max(hrm for _, hrm in self.hrm)
+            avg = sum(hrm for _, hrm in self.hrm) / len(self.hrm)
+            hrm_summary = HrmSummary(lowest=lowest, highest=highest, avarage=avg)
+            hrm_summary.save()
+            training.hrm_summary = hrm_summary
         if commit:
             training.save()
         return training
