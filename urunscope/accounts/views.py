@@ -7,13 +7,16 @@ from .models import Profile
 
 @login_required
 def show(request):
-    profile = Profile.objects.get_or_create(user=request.user)
-    return render('profile.html', {'user': request.user, 'profile': profile})
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'profile.html', {
+        'user': request.user,
+        'profile': profile
+    })
 
 
 @login_required
 def edit_profile(request):
-    profile = Profile.objects.get_or_create(user=request.user)
+    profile = Profile.objects.get(user=request.user)
     if request.method == 'POST':
         form = ProfileForm(request.POST or None, instance=profile)
         if form.is_valid():
@@ -23,4 +26,4 @@ def edit_profile(request):
             return render(request, 'profile_edit.html', {'form': form})
 
     form = ProfileForm(instance=profile)
-    return render('profile_edit.html', {'form': form})
+    return render(request, 'profile_edit.html', {'form': form})
