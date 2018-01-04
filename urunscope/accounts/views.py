@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
@@ -21,6 +21,9 @@ def edit_profile(request):
         form = ProfileForm(request.POST or None, instance=profile)
         if form.is_valid():
             profile = form.save()
+            messages.success(request, 'Profile successfuly saved!')
+            return redirect('accounts:show')
+
         else:
             messages.warning(request, 'Incorrect user data!')
             return render(request, 'profile_edit.html', {'form': form})

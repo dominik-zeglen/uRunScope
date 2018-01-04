@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="{% url 'accounts:edit' %}" method="post">
+    <fieldset>
+    {% csrf_token %}
+    {% load bootstrap3 %}
+    {% bootstrap_form form %}
+    <input type="submit" value="Submit" class="save btn btn-default"/>
+    <a href="{% url 'accounts:show' %}"><button class="btn btn-default">Cancel</button></a>
+    </fieldset>
+</form>
+{% endblock %}

@@ -27,5 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('training/', include(
         'urunscope.trainings.urls', namespace='training')),
-    path('users/', include('urunscope.accounts.urls', namespace='accounts')),
+    path('profile/', include('urunscope.accounts.urls', namespace='accounts')),
 ]
