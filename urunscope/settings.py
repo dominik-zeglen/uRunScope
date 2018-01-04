@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'bootstrap3',
 
     # local
-    'urunscope.trainings'
+    'urunscope.accounts',
+    'urunscope.trainings',
 ]
 
 MIDDLEWARE = [
