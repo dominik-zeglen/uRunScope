@@ -18,11 +18,14 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
-
 urlpatterns = [
     path('', views.hello),
-    path('login/', auth_views.login, {'template_name': 'admin/login.html'}),
+    path('login/', auth_views.login, {
+        'template_name': 'admin/login.html'
+    }),
     path('logout/', auth_views.logout),
     path('admin/', admin.site.urls),
-    path('training/', include('urunscope.trainings.urls', namespace='training')),
+    path('training/', include(
+        'urunscope.trainings.urls', namespace='training')),
+    path('users/', include('urunscope.accounts.urls', namespace='accounts')),
 ]
